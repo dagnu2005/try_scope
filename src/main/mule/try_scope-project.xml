@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5345e6bb-80f9-40b0-811b-bdede0b7fa31" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="try_scope-projectFlow" doc:id="3e47ef25-23f5-44d6-97b9-320889fd9494" >
+		<http:listener doc:name="Listener" doc:id="948663c8-2d60-4846-82f3-b3f64ba8c939" config-ref="HTTP_Listener_config" path="/tryscope"/>
+		<try doc:name="Try" doc:id="467e1a63-01d3-4452-89ae-c3e8f982c2cf" >
+			<logger level="INFO" doc:name="Logger" doc:id="75c8fb1f-159f-4560-a967-bd4555fc405a" />
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="0452d405-2b9a-4eef-bc31-098b5a230b14" >
+					<logger level="INFO" doc:name="Logger" doc:id="fe6ba8f4-8db7-484b-ad0f-0c583e9f9dca" />
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<logger level="INFO" doc:name="Logger" doc:id="2507c392-2fcc-4274-a936-4c1683ee5753" />
+	</flow>
+</mule>
